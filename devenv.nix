@@ -7,10 +7,8 @@ let
 in
 {
   env.GREET = "devenv";
-
   packages = [
     pkgs.git
-    pkgs.dbeaver-bin
   ];
 
   scripts.hello.exec = ''
@@ -25,13 +23,4 @@ in
      git --version # Use packages
   '';
   languages.dotnet.enable = true;
-  enterTest = ''
-    echo "Running tests"
-    git --version | grep --color=auto "${pkgs.git.version}"
-  '';
-
-  # https://devenv.sh/git-hooks/
-  # git-hooks.hooks.shellcheck.enable = true;
-
-  # See full reference at https://devenv.sh/reference/options/
 }

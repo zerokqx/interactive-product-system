@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/zerok/projects/DotTwo/DotTwo.csproj": {}
+    "/home/zerok/projects/interactive-product-system/DotTwo.csproj": {}
   },
   "projects": {
-    "/home/zerok/projects/DotTwo/DotTwo.csproj": {
+    "/home/zerok/projects/interactive-product-system/DotTwo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/zerok/projects/DotTwo/DotTwo.csproj",
+        "projectUniqueName": "/home/zerok/projects/interactive-product-system/DotTwo.csproj",
         "projectName": "DotTwo",
-        "projectPath": "/home/zerok/projects/DotTwo/DotTwo.csproj",
+        "projectPath": "/home/zerok/projects/interactive-product-system/DotTwo.csproj",
         "packagesPath": "/home/zerok/.nuget/packages/",
-        "outputPath": "/home/zerok/projects/DotTwo/obj/",
+        "outputPath": "/home/zerok/projects/interactive-product-system/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/zerok/.nuget/NuGet/NuGet.Config"
@@ -87,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/nix/store/qlc8j1hz4d8b6b8ncg87sdw9jwq75f1a-dotnet-sdk-8.0.417/share/dotnet/sdk/8.0.417/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/nix/store/lrmgmp2pngavyspxjwbs1wphzny19f20-dotnet-sdk-8.0.417/share/dotnet/sdk/8.0.417/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

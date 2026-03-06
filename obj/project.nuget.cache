@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Kv3m2z9QZ+0=",
+  "dgSpecHash": "bPVNyfHBMas=",
   "success": true,
-  "projectFilePath": "/home/zerok/projects/DotTwo/DotTwo.csproj",
+  "projectFilePath": "/home/zerok/projects/interactive-product-system/DotTwo.csproj",
   "expectedPackageFiles": [
     "/home/zerok/.nuget/packages/azure.core/1.38.0/azure.core.1.38.0.nupkg.sha512",
     "/home/zerok/.nuget/packages/azure.identity/1.11.4/azure.identity.1.11.4.nupkg.sha512",
