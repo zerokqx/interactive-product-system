@@ -15,6 +15,8 @@ in
     echo hello from $GREET
   '';
 
+  scripts.migrations.exec="dotnet tool run dotnet-ef migrations add $1";
+  scripts.applay-migrations.exec="dotnet tool run dotnet-ef database update";
   scripts.run.exec = ''${dotnet8} run'';
   scripts.run-dev.exec = ''${dotnet8} watch run'';
   enterShell = ''

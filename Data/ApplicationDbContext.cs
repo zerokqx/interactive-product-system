@@ -14,4 +14,5 @@ public class AppDbContext : DbContext
   public DbSet<ProductionLineModel> ProductionLines { get; set; }
   public DbSet<MaterialModel> Materials { get; set; }
   public DbSet<ProductMaterialModel> ProductMaterials { get; set; }
+  public DbSet<WorkOrderModel> WorkOrders { get; set; }
 }
