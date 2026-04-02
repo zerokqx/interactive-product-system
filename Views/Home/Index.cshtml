@@ -1,10 +1,190 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Производственная панель";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>
-    <p/>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="dashboard-page">
+    <section class="hero-panel">
+        <div>
+            <p class="eyebrow">Интерактивная система управления производством</p>
+            <h1>Панель материалов, продуктов, заказов и линий в одном контуре.</h1>
+            <p class="hero-copy">
+                Интерфейс из ТЗ собран на одной странице: создание материалов и продуктов, запуск заказов,
+                контроль дефицита и управление производственными линиями.
+            </p>
+        </div>
+        <div class="hero-metrics">
+            <article class="metric-card">
+                <span>Материалы</span>
+                <strong id="materialsCount">0</strong>
+                <small>позиций на складе</small>
+            </article>
+            <article class="metric-card">
+                <span>Низкий запас</span>
+                <strong id="lowStockCount">0</strong>
+                <small>требуют пополнения</small>
+            </article>
+            <article class="metric-card">
+                <span>Активные заказы</span>
+                <strong id="activeOrdersCount">0</strong>
+                <small>в работе или в ожидании</small>
+            </article>
+            <article class="metric-card">
+                <span>Доступные линии</span>
+                <strong id="availableLinesCount">0</strong>
+                <small>готовы к запуску</small>
+            </article>
+        </div>
+    </section>
+
+    <section class="dashboard-grid">
+        <article class="panel-card">
+            <div class="panel-head">
+                <div>
+                    <p class="panel-tag">Склад</p>
+                    <h2>Материалы</h2>
+                </div>
+                <button id="toggleLowStock" class="btn btn-outline-light btn-sm" type="button">Только низкий запас</button>
+            </div>
+
+            <form id="materialForm" class="stack-form">
+                <div class="form-grid compact-grid">
+                    <input class="form-control" name="name" placeholder="Название" required />
+                    <input class="form-control" name="quantity" type="number" step="0.01" min="0" placeholder="Количество" required />
+                    <input class="form-control" name="unit" placeholder="Единица" required />
+                    <input class="form-control" name="minStock" type="number" step="0.01" min="0" placeholder="Мин. запас" required />
+                </div>
+                <button class="btn btn-accent" type="submit">Добавить материал</button>
+            </form>
+
+            <div class="table-shell">
+                <table class="table data-table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Материал</th>
+                            <th>Остаток</th>
+                            <th>Ед.</th>
+                            <th>Мин. запас</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="materialsTable"></tbody>
+                </table>
+            </div>
+        </article>
+
+        <article class="panel-card">
+            <div class="panel-head">
+                <div>
+                    <p class="panel-tag">Каталог</p>
+                    <h2>Продукты</h2>
+                </div>
+                <div class="inline-filters">
+                    <input id="productSearch" class="form-control" placeholder="Поиск по названию" />
+                    <input id="categoryFilter" class="form-control" placeholder="Фильтр по категории" />
+                </div>
+            </div>
+
+            <form id="productForm" class="stack-form">
+                <div class="form-grid">
+                    <input class="form-control" name="name" placeholder="Название продукта" required />
+                    <input class="form-control" name="category" placeholder="Категория" required />
+                    <input class="form-control" name="prodTime" type="number" min="1" placeholder="Минут на единицу" required />
+                    <input class="form-control" name="minimalStock" type="number" min="0" placeholder="Мин. запас" />
+                    <input class="form-control" name="description" placeholder="Описание" />
+                    <input class="form-control" name="specFirst" placeholder="Характеристика / JSON поле" />
+                </div>
+                <div class="recipe-box">
+                    <div class="recipe-header">
+                        <strong>Материалы продукта</strong>
+                        <button id="addRecipeRow" class="btn btn-outline-light btn-sm" type="button">Добавить материал</button>
+                    </div>
+                    <div id="recipeRows" class="recipe-rows"></div>
+                </div>
+                <button class="btn btn-accent" type="submit">Создать продукт</button>
+            </form>
+
+            <div class="table-shell">
+                <table class="table data-table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Название</th>
+                            <th>Категория</th>
+                            <th>Мин/шт</th>
+                            <th>Материалы</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productsTable"></tbody>
+                </table>
+            </div>
+        </article>
+
+        <article class="panel-card wide-panel">
+            <div class="panel-head">
+                <div>
+                    <p class="panel-tag">Производство</p>
+                    <h2>Заказы</h2>
+                </div>
+                <div class="inline-filters">
+                    <select id="orderStatusFilter" class="form-select">
+                        <option value="active">Активные</option>
+                        <option value="">Все</option>
+                        <option value="Pending">Pending</option>
+                        <option value="InProgress">InProgress</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                    <select id="orderDateFilter" class="form-select">
+                        <option value="">Все даты</option>
+                        <option value="today">Сегодня</option>
+                    </select>
+                </div>
+            </div>
+
+            <form id="orderForm" class="stack-form">
+                <div class="form-grid">
+                    <select id="orderProductId" class="form-select" name="productId" required></select>
+                    <input id="orderQuantity" class="form-control" name="quantity" type="number" min="1" placeholder="Количество" required />
+                    <select id="orderLineId" class="form-select" name="lineId"></select>
+                </div>
+                <div class="calc-preview" id="calculationPreview">Расчёт времени появится после выбора продукта и количества.</div>
+                <button class="btn btn-accent" type="submit">Создать заказ</button>
+            </form>
+
+            <div class="table-shell">
+                <table class="table data-table align-middle">
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Продукт</th>
+                            <th>Кол-во</th>
+                            <th>Статус</th>
+                            <th>Срок</th>
+                            <th>Прогресс</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTable"></tbody>
+                </table>
+            </div>
+
+            <div class="details-card">
+                <div class="details-head">
+                    <strong>Детали заказа</strong>
+                    <span id="detailsHint">Выбери заказ из таблицы, чтобы увидеть материалы и линию.</span>
+                </div>
+                <div id="orderDetails" class="details-body"></div>
+            </div>
+        </article>
+
+        <article class="panel-card wide-panel">
+            <div class="panel-head">
+                <div>
+                    <p class="panel-tag">Мониторинг</p>
+                    <h2>Производственные линии</h2>
+                </div>
+            </div>
+
+            <div id="linesGrid" class="lines-grid"></div>
+        </article>
+    </section>
 </div>

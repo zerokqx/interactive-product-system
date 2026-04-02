@@ -1,22 +1,379 @@
+:root {
+  --page-bg: #f4f6fb;
+  --panel-bg: #ffffff;
+  --panel-muted: #f7f9fd;
+  --border: #dfe6f2;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --accent: #1e6cff;
+  --accent-soft: #eaf1ff;
+  --danger: #ff6b6b;
+  --success: #1e6cff;
+  --warning: #f3b545;
+}
+
 html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
+  font-size: 15px;
   min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--text);
+  background: var(--page-bg);
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+.app-shell {
+  max-width: 1480px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.app-navbar {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand-mark {
+  color: var(--accent) !important;
+  letter-spacing: 0.02em;
+  font-weight: 700;
+}
+
+.nav-link {
+  color: var(--muted) !important;
+  font-weight: 500;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: var(--accent) !important;
+}
+
+.dashboard-page {
+  display: grid;
+  gap: 1rem;
+  padding-bottom: 2rem;
+}
+
+.hero-panel,
+.panel-card,
+.metric-card,
+.details-card,
+.line-card,
+.schedule-item,
+.recipe-row,
+.details-section {
+  background: var(--panel-bg);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+}
+
+.hero-panel {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.eyebrow,
+.panel-tag {
+  margin: 0 0 0.35rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.hero-panel h1 {
+  margin: 0 0 0.65rem;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  line-height: 1.05;
+  font-weight: 700;
+}
+
+.hero-copy,
+.metric-card span,
+.metric-card small,
+.calc-preview,
+.details-head span,
+.muted,
+.line-meta,
+.empty-state {
+  color: var(--muted);
+}
+
+.hero-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.metric-card {
+  padding: 1rem;
+}
+
+.metric-card strong {
+  display: block;
+  margin: 0.2rem 0;
+  font-size: 2rem;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.panel-card {
+  padding: 1rem;
+}
+
+.wide-panel {
+  grid-column: 1 / -1;
+}
+
+.panel-head,
+.recipe-header,
+.details-head,
+.line-head,
+.line-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.panel-head h2 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.inline-filters,
+.recipe-row,
+.line-actions,
+.schedule-row,
+.order-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.stack-form {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0.9rem 0 1rem;
+}
+
+.form-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.compact-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.form-control,
+.form-select {
+  min-height: 44px;
+  color: var(--text);
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.form-control::placeholder {
+  color: #9aa3b2;
+}
+
+.form-control:focus,
+.form-select:focus,
+.btn:focus,
+.btn:active:focus {
+  color: var(--text);
+  background: #ffffff;
+  border-color: #b9cdfd;
+  box-shadow: none;
+}
+
+.btn-accent {
+  background: var(--accent);
+  color: #ffffff;
+  border: 1px solid var(--accent);
+  font-weight: 600;
+  border-radius: 12px;
+}
+
+.btn-accent:hover,
+.btn-accent:focus {
+  background: #145ce0;
+  color: #ffffff;
+}
+
+.btn-outline-light {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 12px;
+}
+
+.btn-outline-light:hover,
+.btn-outline-light:focus {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: #cfe0ff;
+}
+
+.btn-link {
+  text-decoration: none;
+}
+
+.recipe-box,
+.details-card {
+  padding: 0.85rem;
+  background: var(--panel-muted);
+}
+
+.recipe-rows,
+.details-body,
+.lines-grid,
+.schedule-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.recipe-row,
+.line-card,
+.schedule-item {
+  padding: 0.85rem;
+}
+
+.table-shell {
+  overflow-x: auto;
+}
+
+.data-table {
+  margin-bottom: 0;
+  color: var(--text);
+}
+
+.data-table th {
+  font-size: 0.76rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom-color: var(--border);
+}
+
+.data-table td {
+  border-bottom-color: #edf1f7;
+  vertical-align: middle;
+}
+
+.stock-pill,
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.32rem 0.7rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+
+.stock-pill.low,
+.status-pill.Cancelled {
+  color: #c0392b;
+  background: #fff1f1;
+  border-color: #ffd6d6;
+}
+
+.stock-pill.ok,
+.status-pill.Completed,
+.status-pill.InProgress {
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-color: #cfe0ff;
+}
+
+.status-pill.Pending {
+  color: #9a6700;
+  background: #fff7e5;
+  border-color: #ffe5a8;
+}
+
+.progress-track {
+  width: 140px;
+  height: 10px;
+  border-radius: 999px;
+  background: #e8eef9;
+  overflow: hidden;
+}
+
+.progress-bar-ui {
+  height: 100%;
+  background: var(--accent);
+}
+
+.details-card {
+  margin-top: 1rem;
+}
+
+.details-body {
+  margin-top: 0.75rem;
+}
+
+.details-section {
+  padding: 0.85rem 1rem;
+}
+
+.line-card {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.line-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.line-meta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.92rem;
+}
+
+.schedule-item h4 {
+  margin: 0 0 0.45rem;
+  font-size: 0.96rem;
+  font-weight: 700;
+}
+
+.lines-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.empty-state {
+  padding: 1rem 0;
+}
+
+@media (max-width: 1100px) {
+  .hero-panel,
+  .dashboard-grid,
+  .hero-metrics,
+  .lines-grid,
+  .form-grid,
+  .compact-grid {
+    grid-template-columns: 1fr;
+  }
 }

@@ -1,12 +1,14 @@
 
 
 using DotTwo.Data;
+using DotTwo.Services;
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite("Data Source=main.db"));
+builder.Services.AddScoped<ProductionPlanningService>();
 
 var app = builder.Build();
 

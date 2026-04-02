@@ -1,6 +1,7 @@
 using DotTwo.Data;
 using DotTwo.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DotTwo.Controllers
 {
@@ -10,7 +11,13 @@ namespace DotTwo.Controllers
   public class MaterialsController(AppDbContext db) : ControllerBase
   {
 
-
+    public class CreateMaterialRequest
+    {
+      public required string Name { get; set; }
+      public decimal Quantity { get; set; }
+      public required string Unit { get; set; }
+      public decimal MinStock { get; set; }
+    }
 
     public class UpdateStockRequest
     {
@@ -18,28 +25,43 @@ namespace DotTwo.Controllers
     }
 
     [HttpGet]
-    public IActionResult Index()
+    public async Task<IActionResult> Index(bool low_stock = false)
     {
-      return Ok(db.Materials.ToList());
+      var query = db.Materials.AsQueryable();
+
+      if (low_stock)
+      {
+        query = query.Where(m => m.Quantity <= m.MinimalStock);
+      }
+
+      return Ok(await query.ToListAsync());
     }
     [HttpPost]
-    public IActionResult Create(MaterialModel material)
+    public async Task<IActionResult> Create(CreateMaterialRequest material)
     {
-      db.Materials.Add(material);
-      db.SaveChanges();
-      return Ok(material);
+      var entity = new MaterialModel
+      {
+        Name = material.Name,
+        Quantity = material.Quantity,
+        UnitOfMeasure = material.Unit,
+        MinimalStock = material.MinStock
+      };
+
+      db.Materials.Add(entity);
+      await db.SaveChangesAsync();
+      return CreatedAtAction(nameof(Index), new { id = entity.Id }, entity);
 
 
     }
 
     [HttpPut("{id}/stock")]
-    public IActionResult Edit(int id, UpdateStockRequest body)
+    public async Task<IActionResult> Edit(int id, UpdateStockRequest body)
     {
-      var existing = db.Materials.Find(id);
+      var existing = await db.Materials.FindAsync(id);
       if (existing == null) return NotFound();
-      existing.MinimalStock = body.Amount;
-      db.SaveChanges();
-      return Ok();
+      existing.Quantity = body.Amount;
+      await db.SaveChangesAsync();
+      return Ok(existing);
     }
 
   }
